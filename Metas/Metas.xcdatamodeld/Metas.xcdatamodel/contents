@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="GoalActions" representedClassName="GoalActions" syncable="YES" codeGenerationType="class">
+        <attribute name="actionTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="goalActionId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="goal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Goals" inverseName="goalActions" inverseEntity="Goals" syncable="YES"/>
+    </entity>
+    <entity name="Goals" representedClassName="Goals" syncable="YES" codeGenerationType="class">
+        <attribute name="goalDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="goalId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="goalImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="goalTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="goalActions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GoalActions" inverseName="goal" inverseEntity="GoalActions" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GoalActions" positionX="-20.54296875" positionY="-19.38671875" width="128" height="90"/>
+        <element name="Goals" positionX="-294.6171875" positionY="-45.93359375" width="128" height="120"/>
+    </elements>
 </model>
