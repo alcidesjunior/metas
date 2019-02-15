@@ -93,7 +93,11 @@ class NewGoalViewController: UIViewController {
         self.goal.goalDate = self.finalDateTxt.text!
         self.goal.goalId = NSUUID().uuidString
         self.goal.goalActions = self.actions
-        self.goal.goalImage = UIImage()
+        if let imageSelected = imageCover.image{
+            self.goal.goalImage = imageSelected
+        }else{
+            self.goal.goalImage = UIImage()
+        }
     }
     @IBAction func saveGoal(_ sender: Any) {
         let newGoal = Goal()
@@ -182,5 +186,11 @@ extension NewGoalViewController: UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text = "\(indexPath.item + 1): \(actions[indexPath.item].title)"
         cell.textLabel?.numberOfLines = 0
         return cell
-    }    
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            self.actions.remove(at: indexPath.item)
+            self.tableActions.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 }

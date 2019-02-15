@@ -14,4 +14,6 @@ class GoalCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var goalTitle: UILabel!
     @IBOutlet weak var actionsQuantityLabel: UILabel!
     @IBOutlet weak var goalDate: UILabel!
+    
+    @IBOutlet weak var editGoalButton: UIButton!
 }

@@ -35,6 +35,9 @@ class ViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
     }
+    @objc func editGoal(sender: UIButton){
+        print("\(self.goalsArray[sender.tag].goalTitle!)")
+    }
     
 }
 extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
@@ -44,17 +47,25 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "goalCell", for: indexPath) as! GoalCollectionViewCell
+        
+        print(goalsArray[indexPath.item].goalImage!)
+        
         cell.goalTitle.text = self.goalsArray[indexPath.item].goalTitle
-        cell.goalDate.text = Helper.dateToString(date: self.goalsArray[indexPath.item].goalDate!)//"\(String(describing: self.goalsArray[indexPath.item].goalDate!))"
+        cell.goalDate.text = Helper.dateToString(date: self.goalsArray[indexPath.item].goalDate!)
         cell.actionsQuantityLabel.text = "\(String(describing: self.goalsArray[indexPath.item].goalActions!.count))/1000"
-        cell.goalImage.image = #imageLiteral(resourceName: "default")
+        cell.goalImage.image = self.goals.getImage(imgName: goalsArray[indexPath.item].goalImage!)
+//        cell
+//        cell.goalImage.frame.height
+//        cell.editGoalButton.tag = indexPath.item
+//        cell.editGoalButton.addTarget(self, action: #selector(editGoal(sender:)), for: .touchUpInside)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if UIDevice.current.orientation.isLandscape{
-            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height/2)
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         }
-        return CGSize(width: collectionView.frame.width, height: 300)
+        
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     
