@@ -10,54 +10,68 @@ import UIKit
 
 class ViewController: UIViewController {
     var goals: Goal = Goal()
-    var goalsArray = [Goals]()
+    var goalsData = [Goals]()
+    var filterdGoals = [Goals]()
     @IBOutlet weak var collectionView: UICollectionView!
     
-
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        print(goalsArray[0].goalTitle!)
         collectionView.delegate = self
         collectionView.dataSource = self
-//        collectionView.reloadData()
+        let tagGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(gestureRecognizer:)))
+        
+        view.addGestureRecognizer(tagGesture)
+        //setando label para o button cancel da search bar
+        searchBar.setValue("Cancelar", forKey:"_cancelButtonText")
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        searchBar.delegate = self
+//        searchBar.butt
+
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification){
+        searchBar.showsCancelButton = true
+    }
+    @objc func keyboardWillHide(notification: NSNotification){
+        searchBar.showsCancelButton = false
+        view.endEditing(true)
+    }
+    
+    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
+        view.endEditing(true)
     }
     override func viewDidAppear(_ animated: Bool) {
-        goalsArray = goals.getAll()
-//        let quantityActions = goalsArray[4].goalActions?.allObjects as! [GoalActions]
-//        print(quantityActions.count)
+        goalsData = goals.getAll()
+        filterdGoals = goalsData
         collectionView.reloadData()
     }
 
-    @IBAction func editGoal(_ sender: Any) {
-    }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     @objc func editGoal(sender: UIButton){
-        print("\(self.goalsArray[sender.tag].goalTitle!)")
+        print("\(self.goalsData[sender.tag].goalTitle!)")
     }
     
 }
 extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return goalsArray.count
+            return filterdGoals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "goalCell", for: indexPath) as! GoalCollectionViewCell
         
-        print(goalsArray[indexPath.item].goalImage!)
-        
-        cell.goalTitle.text = self.goalsArray[indexPath.item].goalTitle
-        cell.goalDate.text = Helper.dateToString(date: self.goalsArray[indexPath.item].goalDate!)
-        cell.actionsQuantityLabel.text = "\(String(describing: self.goalsArray[indexPath.item].goalActions!.count))/1000"
-        cell.goalImage.image = self.goals.getImage(imgName: goalsArray[indexPath.item].goalImage!)
-//        cell
-//        cell.goalImage.frame.height
-//        cell.editGoalButton.tag = indexPath.item
-//        cell.editGoalButton.addTarget(self, action: #selector(editGoal(sender:)), for: .touchUpInside)
+        cell.goalTitle.text = self.filterdGoals[indexPath.item].goalTitle
+        cell.goalDate.text = Helper.dateToString(date: self.filterdGoals[indexPath.item].goalDate!)
+        cell.actionsQuantityLabel.text = "\(String(describing: self.filterdGoals[indexPath.item].goalActions!.count))/1000"
+        cell.goalImage.image = self.goals.getImage(imgName: filterdGoals[indexPath.item].goalImage!)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -69,4 +83,16 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDa
     }
     
     
+}
+extension ViewController: UISearchBarDelegate{
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+        searchBar.text = ""
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterdGoals = searchText.isEmpty ? goalsData : goalsData.filter({ (dataString: Goals) -> Bool in
+            return dataString.goalTitle!.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        collectionView.reloadData()
+    }
 }
