@@ -15,12 +15,14 @@ struct GoalStruct{
     var goalTitle: String
     var goalDate: String
     var goalActions: [Action]
+    var status: Bool
     
-    init(goalId: String, goalImage: UIImage, goalTitle: String, goalDate: String, goalActions:[Action]){
+    init(goalId: String, goalImage: UIImage, goalTitle: String, goalDate: String, goalActions:[Action], status: Bool){
         self.goalId = goalId
         self.goalImage = goalImage
         self.goalTitle = goalTitle
         self.goalDate = goalDate
         self.goalActions = goalActions
+        self.status = status
     }
 }

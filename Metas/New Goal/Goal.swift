@@ -57,7 +57,7 @@ class Goal: NSObject{
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM/yyyy"
             let date = formatter.date(from: goal.goalDate)
-        
+            goalEntity.setValue(false, forKey: "status")
             goalEntity.setValue(goal.goalId, forKey: "goalId")
             goalEntity.setValue(goal.goalTitle, forKey: "goalTitle")
             let imageNamed = "\(UUID().uuidString).jpg"
