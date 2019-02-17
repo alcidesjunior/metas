@@ -41,8 +41,10 @@ class Goal: NSObject{
         let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent(imgName)
         let urlString: String = imagePath!.absoluteString
         if fileManager.fileExists(atPath: urlString) {
-            let image = UIImage(contentsOfFile: urlString)
-            return image!
+            if let image = UIImage(contentsOfFile: urlString){
+                return image
+            }
+            return UIImage(named: "default.jpg")!
         } else {
             // print("No Image")
             return UIImage(named: "default.jpg")!

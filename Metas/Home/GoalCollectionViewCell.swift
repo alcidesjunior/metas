@@ -15,5 +15,15 @@ class GoalCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var actionsQuantityLabel: UILabel!
     @IBOutlet weak var goalDate: UILabel!
     
-    @IBOutlet weak var editGoalButton: UIButton!
+    @IBOutlet weak var viewForLabels: UIView!
+    @IBOutlet weak var buttonDone: UIButton!
+    @IBOutlet weak var buttonEdit: UIButton!
+    
+    override func layoutSubviews() {
+        self.viewForLabels.clipsToBounds = true
+        self.viewForLabels.layer.borderWidth = 0
+        self.goalImage.layer.cornerRadius = 6
+        self.buttonDone.layer.cornerRadius = 6
+        self.buttonEdit.layer.cornerRadius = 6
+    }
 }

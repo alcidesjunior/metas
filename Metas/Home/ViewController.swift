@@ -27,21 +27,23 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(tagGesture)
         //setando label para o button cancel da search bar
         searchBar.setValue("Cancelar", forKey:"_cancelButtonText")
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowx(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidex(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         searchBar.delegate = self
 //        searchBar.butt
 
     }
     
-    @objc func keyboardWillShow(notification: NSNotification){
-        searchBar.showsCancelButton = true
-    }
-    @objc func keyboardWillHide(notification: NSNotification){
-        searchBar.showsCancelButton = false
-        view.endEditing(true)
-    }
+//    @objc func keyboardWillShowx(notification: NSNotification){
+//        searchBar.showsCancelButton = true
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//    }
+//    @objc func keyboardWillHidex(notification: NSNotification){
+//        searchBar.showsCancelButton = false
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        view.endEditing(true)
+//    }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
@@ -88,6 +90,14 @@ extension ViewController: UISearchBarDelegate{
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
         searchBar.text = ""
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterdGoals = searchText.isEmpty ? goalsData : goalsData.filter({ (dataString: Goals) -> Bool in

@@ -20,6 +20,7 @@ class NewGoalViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var constraintContentHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var buttonSave: UIBarButtonItem!
     @IBOutlet weak var tableActions: UITableView!
     var activeField: UITextField?
     var lastOffSet: CGPoint!
@@ -54,8 +55,15 @@ class NewGoalViewController: UIViewController {
         
         self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(returnTextView(gesture:))))
         let tagGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(gestureRecognizer:)))
-        
         view.addGestureRecognizer(tagGesture)
+        //adicionando observers para a ação de editar o campo de texto
+        self.goalTxt.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.finalDateTxt.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+//        if self.goalTxt.text?.isEmpty == true || self.finalDateTxt.text?.isEmpty == true{
+            self.buttonSave.isEnabled = false
+        self.navigationController?.hidesBarsWhenKeyboardAppears = false
+        
 
     }
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
@@ -65,6 +73,11 @@ class NewGoalViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         finalDateTxt.text = dateFormatter.string(from: datePicker.date)
+        if self.goalTxt.text?.isEmpty == false && self.finalDateTxt.text?.isEmpty == false{
+            self.buttonSave.isEnabled =  true
+        }else{
+            self.buttonSave.isEnabled =  false
+        }
     }
     
     @objc func returnTextView(gesture: UIGestureRecognizer) {
@@ -104,7 +117,7 @@ class NewGoalViewController: UIViewController {
         self.getInputs()
         
         if newGoal.add(goal: self.goal){
-            print("Meta salva com sucesso!")
+            self.navigationController?.popToRootViewController(animated: true)
         }else{
             print("A meta nao pode ser salva...")
         }
@@ -112,6 +125,18 @@ class NewGoalViewController: UIViewController {
     }
 }
 extension NewGoalViewController: UITextFieldDelegate{
+    @objc func textFieldDidChange(_ textField: UITextField) {
+//        if textField.text?.isEmpty == false{
+//            self.buttonSave.isEnabled = true
+//        }else{
+//            self.buttonSave.isEnabled = false
+//
+//        }
+//        print(self.finalDateTxt)
+//        if self.goalTxt.text?.isEmpty == false && self.finalDateTxt.text != ""{
+//            self.buttonSave.isEnabled =  true
+//        }
+    }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
         lastOffSet = self.scrollView.contentOffset

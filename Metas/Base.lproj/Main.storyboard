@@ -13,7 +13,7 @@
         <!--Minhas metas-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Metas" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="metas" id="BYZ-38-t0r" customClass="ViewController" customModule="Metas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,13 +74,13 @@
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wel-3B-O0v">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wel-3B-O0v">
                                                     <rect key="frame" x="7" y="495" width="168" height="43"/>
                                                     <color key="backgroundColor" red="0.23896173489059871" green="0.72844857158999754" blue="0.30855268726532464" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="43" id="Wsu-Gw-Jn5"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <state key="normal" title="Concluir">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="titleShadowColor" red="0.074510626489999995" green="0.074508346619999999" blue="0.074509911240000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -89,7 +89,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M93-3A-S6d">
                                                     <rect key="frame" x="199" y="495" width="168" height="43"/>
                                                     <color key="backgroundColor" red="0.16937092737142545" green="0.46887858231298918" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <state key="normal" title="Editar">
                                                         <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" red="0.074510626489999995" green="0.074508346619999999" blue="0.074509911240000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -137,9 +137,12 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="actionsQuantityLabel" destination="pVZ-Xr-evK" id="krD-Ix-q4T"/>
+                                            <outlet property="buttonDone" destination="Wel-3B-O0v" id="NX9-xL-oTT"/>
+                                            <outlet property="buttonEdit" destination="M93-3A-S6d" id="EcF-xt-2LV"/>
                                             <outlet property="goalDate" destination="A70-gl-MjX" id="Gia-WZ-glM"/>
                                             <outlet property="goalImage" destination="9rq-as-cwO" id="aiX-Rd-fbq"/>
                                             <outlet property="goalTitle" destination="kd6-Nn-CE3" id="HFa-ot-Ls2"/>
+                                            <outlet property="viewForLabels" destination="pWb-9k-WxE" id="AXE-7U-WtW"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -372,6 +375,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="actionTxt" destination="jea-N0-ffp" id="I4t-az-bOF"/>
+                        <outlet property="buttonSave" destination="Tii-FF-pw3" id="akc-SA-G9w"/>
                         <outlet property="constraintContentHeight" destination="wjE-pD-Ab0" id="Qex-Vf-fXh"/>
                         <outlet property="contentView" destination="UO2-BC-8rb" id="eHB-Lk-uIm"/>
                         <outlet property="finalDateTxt" destination="qkF-SK-XYe" id="5q7-Fg-5KP"/>
