@@ -35,16 +35,6 @@ class ViewController: UIViewController {
 
     }
     
-//    @objc func keyboardWillShowx(notification: NSNotification){
-//        searchBar.showsCancelButton = true
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//    }
-//    @objc func keyboardWillHidex(notification: NSNotification){
-//        searchBar.showsCancelButton = false
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        view.endEditing(true)
-//    }
-    
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
     }
