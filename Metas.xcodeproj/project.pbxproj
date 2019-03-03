@@ -19,6 +19,7 @@
 		1AC0F698220F5EE900077EC7 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC0F697220F5EE900077EC7 /* GoalCollectionViewCell.swift */; };
 		1ACCB1D0220E31C6008F715C /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACCB1CF220E31C6008F715C /* Goal.swift */; };
 		1ACCB1D2220E3229008F715C /* GoalStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACCB1D1220E3229008F715C /* GoalStruct.swift */; };
+		1ADAB7F32221C05800125449 /* CellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADAB7F22221C05800125449 /* CellDelegate.swift */; };
 		1AF52D672205129A00E0460F /* NewGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF52D662205129A00E0460F /* NewGoalViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		1AC0F697220F5EE900077EC7 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		1ACCB1CF220E31C6008F715C /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		1ACCB1D1220E3229008F715C /* GoalStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStruct.swift; sourceTree = "<group>"; };
+		1ADAB7F22221C05800125449 /* CellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDelegate.swift; sourceTree = "<group>"; };
 		1AF52D662205129A00E0460F /* NewGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +118,7 @@
 			children = (
 				1A8DA08821F3E16800B66AD7 /* ViewController.swift */,
 				1AC0F697220F5EE900077EC7 /* GoalCollectionViewCell.swift */,
+				1ADAB7F22221C05800125449 /* CellDelegate.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				1A3FFCC922134B9700515AA8 /* Helper.swift in Sources */,
 				1ACCB1D0220E31C6008F715C /* Goal.swift in Sources */,
 				1A8DA08F21F3E16800B66AD7 /* Metas.xcdatamodeld in Sources */,
+				1ADAB7F32221C05800125449 /* CellDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,6 +3,7 @@
     <entity name="GoalActions" representedClassName="GoalActions" syncable="YES" codeGenerationType="class">
         <attribute name="actionTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="goalActionId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="goal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Goals" inverseName="goalActions" inverseEntity="Goals" syncable="YES"/>
     </entity>
     <entity name="Goals" representedClassName="Goals" syncable="YES" codeGenerationType="class">
@@ -14,7 +15,7 @@
         <relationship name="goalActions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GoalActions" inverseName="goal" inverseEntity="GoalActions" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GoalActions" positionX="-20.54296875" positionY="-19.38671875" width="128" height="90"/>
+        <element name="GoalActions" positionX="-20.54296875" positionY="-19.38671875" width="128" height="105"/>
         <element name="Goals" positionX="-294.6171875" positionY="-45.93359375" width="128" height="135"/>
     </elements>
 </model>

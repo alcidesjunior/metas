@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     var goals: Goal = Goal()
     var goalsData = [Goals]()
     var filterdGoals = [Goals]()
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -27,8 +28,6 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(tagGesture)
         //setando label para o button cancel da search bar
         searchBar.setValue("Cancelar", forKey:"_cancelButtonText")
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowx(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidex(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         searchBar.delegate = self
 //        searchBar.butt
@@ -52,18 +51,42 @@ class ViewController: UIViewController {
     }
     
 }
-extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CellDelegate{
+    func doneTaped(_ cell: GoalCollectionViewCell) {
+        let indexPath = self.collectionView.indexPath(for: cell)
+//        print("Concluir ",indexPath?.item)
+    }
+    
+    func editTaped(_ cell: GoalCollectionViewCell) {
+        let indexPath = self.collectionView.indexPath(for: cell)
+        
+        if let newGoalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "newGoalViewController") as? NewGoalViewController{
+            if let navigator = navigationController{
+                if let index = indexPath?.item {
+                    guard let goalID = self.filterdGoals[index].goalId else{
+                       return
+                    }
+                    newGoalViewController.indexGoals = goalID
+                    navigator.pushViewController(newGoalViewController, animated: true)
+                }
+            }
+        }
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return filterdGoals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "goalCell", for: indexPath) as! GoalCollectionViewCell
+        cell.delegate = self
         
         cell.goalTitle.text = self.filterdGoals[indexPath.item].goalTitle
         cell.goalDate.text = Helper.dateToString(date: self.filterdGoals[indexPath.item].goalDate!)
-        cell.actionsQuantityLabel.text = "\(String(describing: self.filterdGoals[indexPath.item].goalActions!.count))/1000"
+        cell.actionsQuantityLabel.text = "0/\(String(describing: self.filterdGoals[indexPath.item].goalActions!.count))"
         cell.goalImage.image = self.goals.getImage(imgName: filterdGoals[indexPath.item].goalImage!)
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

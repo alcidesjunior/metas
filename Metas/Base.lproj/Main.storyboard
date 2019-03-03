@@ -85,6 +85,9 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="titleShadowColor" red="0.074510626489999995" green="0.074508346619999999" blue="0.074509911240000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="donePressed:" destination="y2i-aj-5a5" eventType="touchUpInside" id="9f3-7V-hVz"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M93-3A-S6d">
                                                     <rect key="frame" x="199" y="495" width="168" height="43"/>
@@ -94,6 +97,9 @@
                                                         <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" red="0.074510626489999995" green="0.074508346619999999" blue="0.074509911240000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="EditPressed:" destination="y2i-aj-5a5" eventType="touchUpInside" id="tzC-qM-GmW"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da meta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kd6-Nn-CE3">
                                                     <rect key="frame" x="21" y="420" width="313" height="25"/>
@@ -205,7 +211,7 @@
         <!--Nova meta-->
         <scene sceneID="UDi-9E-5O6">
             <objects>
-                <viewController id="Qb0-gO-A7K" customClass="NewGoalViewController" customModule="Metas" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newGoalViewController" id="Qb0-gO-A7K" customClass="NewGoalViewController" customModule="Metas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B7N-RJ-BfZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

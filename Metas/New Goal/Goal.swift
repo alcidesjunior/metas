@@ -13,9 +13,10 @@ import CoreData
 class Goal: NSObject{
     /*implementar o coredata pra isso daqui taokey?*/
     var context: NSManagedObjectContext?
-    
+    let request: NSFetchRequest<NSFetchRequestResult>?
     override init(){
         self.context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        self.request = NSFetchRequest<NSFetchRequestResult>(entityName: "Goals")
     }
     func getDirectoryPath() -> NSURL {
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("goalsImage")
@@ -67,12 +68,13 @@ class Goal: NSObject{
             goalEntity.setValue(date, forKey: "goalDate")
             
             //inserindo actions
-                for currentAction in goal.goalActions{
-                    print(currentAction.title)
+                for (index,currentAction) in goal.goalActions.enumerated(){
+                    print(currentAction.actionTitle)
                     if let actionEntity = NSEntityDescription.insertNewObject(forEntityName: "GoalActions", into: self.context!) as? GoalActions{
-                        actionEntity.setValue(String(NSDate().timeIntervalSince1970), forKey: "goalActionId")
-                        actionEntity.setValue(currentAction.title, forKey: "actionTitle")
+                        actionEntity.setValue(UUID().uuidString, forKey: "goalActionId")
+                        actionEntity.setValue(currentAction.actionTitle, forKey: "actionTitle")
                         actionEntity.setValue(goalEntity, forKey: "goal")
+                        actionEntity.setValue(index, forKey: "order")
                     }
                 }
            
@@ -83,13 +85,24 @@ class Goal: NSObject{
         return false
     }
     func getAll()->[Goals]{
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Goals")
-        request.sortDescriptors = [NSSortDescriptor.init(key: "goalId", ascending: true)]
+        self.request!.sortDescriptors = [NSSortDescriptor.init(key: "goalId", ascending: true)]
         do{
-            let goals = try context!.fetch(request) as! [Goals]
+            let goals = try context!.fetch(self.request!) as! [Goals]
             return goals
         }catch{
             fatalError("Error \(error)")
         }
+    }
+    func getById(goalID: String)->Goals?{
+        self.request?.predicate = NSPredicate(format: "goalId == %@", goalID)
+        do{
+            guard let goalObject = try context?.fetch(self.request!).first as? Goals else{
+                return nil
+            }
+            return goalObject
+        }catch{
+            fatalError("Error \(error)")
+        }
+        return nil
     }
 }

@@ -18,6 +18,7 @@ class GoalCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var viewForLabels: UIView!
     @IBOutlet weak var buttonDone: UIButton!
     @IBOutlet weak var buttonEdit: UIButton!
+    weak var delegate: CellDelegate?
     
     override func layoutSubviews() {
         self.viewForLabels.clipsToBounds = true
@@ -26,4 +27,12 @@ class GoalCollectionViewCell: UICollectionViewCell {
         self.buttonDone.layer.cornerRadius = 6
         self.buttonEdit.layer.cornerRadius = 6
     }
+    
+    @IBAction func donePressed(_ sender: Any) {
+        delegate?.doneTaped(self)
+    }
+    @IBAction func EditPressed(_ sender: Any) {
+        delegate?.editTaped(self)
+    }
+    
 }

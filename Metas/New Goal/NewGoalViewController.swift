@@ -26,14 +26,27 @@ class NewGoalViewController: UIViewController {
     var lastOffSet: CGPoint!
     var keyboardHeight: CGFloat!
     var imagePicker = UIImagePickerController()
-    var goal = GoalStruct(goalId: "", goalImage: UIImage(), goalTitle: "", goalDate: "", goalActions: [Action.init(title: "")])
+    var goal = GoalStruct(goalId: "", goalImage: UIImage(), goalTitle: "", goalDate: "", goalActions: [ActionStruct.init(actionTitle: "", goalActionId: "")], status: false)
+    var indexGoals: String = "0"
     
     private var datePicker: UIDatePicker?
     
-    var actions = [Action]()
+    var actions = [ActionStruct]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let goalManager = Goal()
+        /*
+         Existe um bug aqui: quando deixa a linha abaixo, o imageview da tela buga, ocupando todo o espaço
+         quando comenta, a tela fica normal
+         */
+        guard let currentGoals = goalManager.getById(goalID:  self.indexGoals) else {return}
+//        let allActions = currentGoals.goalActions?.allObjects as! [GoalActions]
+//        for item in allActions.sorted(by: {$0.order < $1.order}){
+//            print(item.actionTitle!)
+//        }
+        
         goalTxt.delegate = self
         finalDateTxt.delegate = self
         actionTxt.delegate = self
@@ -93,7 +106,7 @@ class NewGoalViewController: UIViewController {
         if let actionText = self.actionTxt.text{
             //validar isso daqui!!!
             if actionText != ""{
-            actions.append(Action.init(title: actionText))
+                actions.append(ActionStruct.init(actionTitle: actionText, goalActionId: ""))
             tableActions.reloadData()
                 actionTxt.text = ""
             }
@@ -208,7 +221,7 @@ extension NewGoalViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableActions.dequeueReusableCell(withIdentifier: "tableActionCell", for: indexPath)
-        cell.textLabel?.text = "\(indexPath.item + 1): \(actions[indexPath.item].title)"
+        cell.textLabel?.text = "\(indexPath.item + 1): \(actions[indexPath.item].actionTitle)"
         cell.textLabel?.numberOfLines = 0
         return cell
     }

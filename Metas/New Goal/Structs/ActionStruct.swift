@@ -7,6 +7,7 @@
 //
 
 import Foundation
-struct Action{
-    var title: String
+struct ActionStruct{
+    var actionTitle: String
+    var goalActionId: String
 }
